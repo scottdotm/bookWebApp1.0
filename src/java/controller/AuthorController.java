@@ -36,62 +36,16 @@ public class AuthorController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String destination = DEST_PAGE;
-//        int COUNTER = 0;
         
         //Creating an instance of the AuthorService() - Creates our List and Populates it (our database)
         AuthorService aus = new AuthorService();
         
-        //We pull all of our Authors data out from our list created in getAuthors
-//        for(Object a : aus.getAuthors()){
-//            if(COUNTER<3){
-//                request.setAttribute("name", aus.getAuthors().get(COUNTER));
-//                request.setAttribute("authorId", aus.getAuthors().get(COUNTER));
-//                request.setAttribute("Timestamp", aus.getAuthors().get(COUNTER));
-//            } else{
-//                System.out.println("Problem with Record One");
-//            }
-//            if(COUNTER<6&&COUNTER>3){
-//                request.setAttribute("name2", aus.getAuthors().get(COUNTER));
-//                request.setAttribute("authorId2", aus.getAuthors().get(COUNTER));
-//                request.setAttribute("Timestamp2", aus.getAuthors().get(COUNTER));
-//            }
-//            if(COUNTER<9&&COUNTER>6){
-//                request.setAttribute("name3", aus.getAuthors().get(COUNTER));
-//                request.setAttribute("authorId3", aus.getAuthors().get(COUNTER));
-//                request.setAttribute("Timestamp3", aus.getAuthors().get(COUNTER));
-//            }
-//            if(COUNTER<12&&COUNTER>9){
-//                request.setAttribute("name3", aus.getAuthors().get(COUNTER));
-//                request.setAttribute("authorId3", aus.getAuthors().get(COUNTER));
-//                request.setAttribute("Timestamp3", aus.getAuthors().get(COUNTER));
-//            }
-//            COUNTER++;
-//        }
-//        request.setAttribute("firstAuthorName", aus.getAuthors().get(0));
-//        request.setAttribute("firstAuthorId", aus.getAuthors().get(1));
-//        request.setAttribute("firstTimeStamp", aus.getAuthors().get(2));
-//        
-//        request.setAttribute("secondAuthorName", aus.getAuthors().get(3));
-//        request.setAttribute("secondAuthorId", aus.getAuthors().get(4));
-//        request.setAttribute("secondTimeStamp", aus.getAuthors().get(5));
-//        
-//        request.setAttribute("thirdAuthorName", aus.getAuthors().get(6));
-//        request.setAttribute("thirdAuthorId", aus.getAuthors().get(7));
-//        request.setAttribute("thirdTimeStamp", aus.getAuthors().get(8));
-//        
-//        request.setAttribute("fourthAuthorName", aus.getAuthors().get(9));
-//        request.setAttribute("fourthAuthorId", aus.getAuthors().get(10));
-//        request.setAttribute("fourthTimeStamp", aus.getAuthors().get(11));
-        
-        
-             List<Author> authors = null;
-             authors = aus.getAuthors();
+             List<Author> authors = aus.getAuthors();
              request.setAttribute("authors", authors);
          
        
         
-        RequestDispatcher view = request.getRequestDispatcher("/Authors.jsp");
+        RequestDispatcher view = request.getRequestDispatcher(DEST_PAGE);
                 view.forward(request,response);
         
         

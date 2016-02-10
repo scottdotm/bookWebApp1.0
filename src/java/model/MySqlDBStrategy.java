@@ -17,14 +17,17 @@ import java.sql.SQLException;
 public class MySqlDBStrategy implements DBStrategy {
     private Connection conn;
     
-    public MySqlDBStrategy(String driverClass, String url, String userName, String password) throws ClassNotFoundException,SQLException{
+    @Override
+    public void openConnection(String driverClass, String url, 
+            String userName, String password) throws ClassNotFoundException, SQLException {
         
         Class.forName (driverClass);
-        conn = DriverManager.getConnection(url,userName,password);
-        
+        conn = DriverManager.getConnection(url,userName, password);
         
     }
-    public void closeConnection() throws SQLException{
-        
+    
+    @Override
+    public void closeConnection() throws SQLException {
+        conn.close();
     }
 }
