@@ -47,8 +47,16 @@ public class MySqlDBStrategy implements DBStrategy {
      * @throws java.sql.SQLException
      * @return records
      */
+    @Override
     public List<Map<String, Object>> findAllRecords(String tableName, int maxRecords) throws SQLException{
-      String sql = "select * from " + tableName + " limit " + maxRecords;
+        String sql;
+        if(maxRecords <= 1){
+                sql = "select * from " + tableName;
+                }else{
+                sql = "select * from " + tableName + " limit " + maxRecords;
+                }
+   
+      //String sql = "select * from " + tableName + " limit " + maxRecords;
       Statement stmt = conn.createStatement();
       ResultSet rs = stmt.executeQuery(sql);
       ResultSetMetaData rsmd = rs.getMetaData();
@@ -57,7 +65,7 @@ public class MySqlDBStrategy implements DBStrategy {
       
       while(rs.next()){
           Map<String, Object> record=new HashMap<>();
-          for(int colNo = 1; colNo == columnCount; colNo++){
+          for(int colNo = 1; colNo <= columnCount; colNo++){
               Object colData = rs.getObject(colNo);
               String colName = rsmd.getColumnName(colNo);
               record.put(colName, colData);
@@ -67,4 +75,13 @@ public class MySqlDBStrategy implements DBStrategy {
       
       return records;
     }
+    public static void main(String[] args) throws SQLException, ClassNotFoundException{
+DBStrategy db = new MySqlDBStrategy();
+db.openConnection("com.mysql.jdbc.Driver","jdbc:mysql://localhost:3306/books","root","admin");
+List<Map<String,Object>> rawData=db.findAllRecords("author",0);
+db.closeConnection();
+System.out.println(rawData);
 }
+
+}
+
