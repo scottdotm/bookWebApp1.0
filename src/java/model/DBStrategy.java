@@ -22,4 +22,6 @@ public interface DBStrategy {
     public abstract void closeConnection() throws SQLException;
     
     public abstract List<Map<String, Object>> findAllRecords(String tableName, int maxRecords) throws SQLException;
+    
+    public void deleteById(String tableName, String id) throws ClassNotFoundException, SQLException;
 }
