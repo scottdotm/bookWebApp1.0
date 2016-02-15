@@ -80,29 +80,18 @@ public class MySqlDBStrategy implements DBStrategy {
     
     @Override
     public void deleteById(String tableName, String id) throws ClassNotFoundException, SQLException {
-       // Validate the parameters here.
-        
-       // String sql = "DELETE FROM " + tableName + " WHERE " + column + "=" + value;
+        //Need to evaluate the parameters being passed in.
         String pKeyColumnName = "";
-       // Statement stmt = conn.createStatement();
         
         
         DatabaseMetaData dmd = conn.getMetaData();
         ResultSet rs = null;
       
-        // was told this is expensive. Could maybe solve this with an ENUM.
         rs = dmd.getPrimaryKeys(null, null, tableName);
-        
-
-        // this works only if there is only one PK... in a parent child relationship I may want to 
-        // test for how many PKs I get back... if this is going to work for any table. 
        
             
         while(rs.next()){
         pKeyColumnName = rs.getString("COLUMN_NAME");
-       // System.out.println("PK column name is " + pKeyColumnName);
-        
-        //String sql = "delete from " + tableName + " where " + pKeyColumnName + "=" + id;
         
         String sql2 = "delete from " + tableName + " where " + pKeyColumnName + "=?";
         
@@ -117,18 +106,18 @@ public class MySqlDBStrategy implements DBStrategy {
     
     
     
-    public static void main(String[] args) throws ClassNotFoundException, SQLException {
-        
-        DBStrategy db = new MySqlDBStrategy();
-        db.openConnection("com.mysql.jdbc.Driver", "jdbc:mysql://localhost:3306/books", "root", "admin");
-        System.out.println(db.findAllRecords("author", 0).toString());
-        db.deleteById("author", "2");
-        System.out.println(db.findAllRecords("author", 0).toString());
-        db.closeConnection();
-        
-    }
-    
-}
+//    public static void main(String[] args) throws ClassNotFoundException, SQLException {
+//        
+//        DBStrategy db = new MySqlDBStrategy();
+//        db.openConnection("com.mysql.jdbc.Driver", "jdbc:mysql://localhost:3306/books", "root", "admin");
+//        System.out.println(db.findAllRecords("author", 0).toString());
+//        db.deleteById("author", "3");
+//        System.out.println(db.findAllRecords("author", 0).toString());
+//        db.closeConnection();
+//        
+//    }
+//    
+//}
 //    public static void main(String[] args) throws SQLException, ClassNotFoundException{
 //DBStrategy db = new MySqlDBStrategy();
 //db.openConnection("com.mysql.jdbc.Driver","jdbc:mysql://localhost:3306/books","root","admin");
