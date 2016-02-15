@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
 
@@ -78,10 +73,16 @@ public class MySqlDBStrategy implements DBStrategy {
       return records;
     }
     
+    /**
+     * Deletes a record by its Id
+     * @param tableName
+     * @param id
+     * @throws ClassNotFoundException, SQLException
+     */
     @Override
     public void deleteById(String tableName, String id) throws ClassNotFoundException, SQLException {
         //Need to evaluate the parameters being passed in.
-        String pKeyColumnName = "";
+        String pKeyColumnName = null;
         
         
         DatabaseMetaData dmd = conn.getMetaData();
@@ -103,6 +104,7 @@ public class MySqlDBStrategy implements DBStrategy {
         }
 
     }
+}
     
     
     
